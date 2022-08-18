@@ -810,7 +810,9 @@ function teleportToFeature(GEOID) {
 
         saved_view.goTo({
             target: output.features[0].geometry,
-            zoom: 9
+            zoom: 10,
+            tilt: 0,
+            heading: 0
         });
 
     })
