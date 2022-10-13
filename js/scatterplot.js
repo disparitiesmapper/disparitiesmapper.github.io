@@ -98,7 +98,9 @@ function drawGraph() {
             .attr("width", width );
 
         let changeScales = d3.zoom()
-            .scaleExtent([.48, 18])
+            // .scaleExtent([.48, 18])
+            .scaleExtent([1, 18])
+            .translateExtent( [[0.1,0], [width, height]] )
             .extent([[0, 0], [width, height]])
             .on("zoom", refreshData);
 

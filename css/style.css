@@ -247,3 +247,17 @@ a:hover {
     opacity: 0.6;
     transition: opacity 0.1s ease-in-out;
 }
+
+@media only screen and (max-height: 680px) {
+    #scatterPlot {
+        /*overflow-y: scroll;*/
+        /*max-height: 400px;*/
+        transform:translateY(-80px);
+    }
+}
+
+@media only screen and (max-height: 570px) {
+    #scatterPlot {
+        transform:translateY(-100px);
+    }
+}
