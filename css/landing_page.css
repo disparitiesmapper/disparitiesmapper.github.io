@@ -256,7 +256,7 @@
 }
 
 .central-modal {
-    height: 600px;
+    /*height: 600px;*/
     width: 60%;
     background: white;
     position: fixed;
@@ -265,8 +265,8 @@
     transform: translate(-50%, -50%);
     box-shadow: 0 0 85px rgb(90 86 130 / 20%);
     display: none;
-    overflow-y: auto;
-    padding-bottom: 100px;
+    /*overflow-y: auto;*/
+    padding-bottom: 50px;
     padding-top: 0px;
     z-index: 2;
     border-radius: 20px;
@@ -343,6 +343,8 @@
     background: #9052F8;
     height: 30px;
     margin-bottom: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 15px;
 }
 
 #sidebar-popup {
