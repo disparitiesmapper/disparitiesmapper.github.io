@@ -160,7 +160,7 @@ a:hover {
 }
 
 #variable-selector {
-    width: 320px;
+    width: 335px;
     background: #fff;
     padding: 20px;
     padding-left:30px;
@@ -241,6 +241,7 @@ a:hover {
     padding-left:30px;
     height: 300px;
     overflow-y: scroll;
+    padding-top:25px;
 }
 
 .to-home-link:hover {

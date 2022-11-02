@@ -581,19 +581,19 @@ require([
 
         switch (changedField.id) {
             case 'ec':
-                setPollutionVariable("ec_pred", "EC prediction (height)", 0.22, 0.66, "<0.17 (10th percentile)", ">0.51 (95th percentile)", "is the predicted measure of ammonium, also in 2010.")
+                setPollutionVariable("ec_pred", "predicted elemental carbon (height)", 0.22, 0.66, "<0.17 (10th percentile)", ">0.51 (95th percentile)", "is the predicted measure of ammonium, also in 2010.")
                 break;
             case 'ammonium':
-                setPollutionVariable("nh4_predic", "NH4+ prediction (height)", 0.31, 1.34, "<0.31 (10th percentile)", ">1.34 (95th percentile)", "is the predicted measure of ammonium, also in 2010.")
+                setPollutionVariable("nh4_predic", "predicted ammonium (height)", 0.31, 1.34, "<0.31 (10th percentile)", ">1.34 (95th percentile)", "is the predicted measure of ammonium, also in 2010.")
                 break;
             case 'nitrate':
-                setPollutionVariable("no3_predic", "NO3- prediction (height)", 0.40, 2.08, "<0.40 (10th percentile)", ">2.08 (95th percentile)", "is the predicted measure of nitrate, also in 2010.")
+                setPollutionVariable("no3_predic", "predicted nitrate (height)", 0.40, 2.08, "<0.40 (10th percentile)", ">2.08 (95th percentile)", "is the predicted measure of nitrate, also in 2010.")
                 break;
             case 'oc':
-                setPollutionVariable("oc_predict", "OC prediction (height)", 0.98, 2.28, "<0.98 (10th percentile)", ">2.28 (95th percentile)", "is the predicted measure of organic carbon, also in 2010.")
+                setPollutionVariable("oc_predict", "predicted organic carbon (height)", 0.98, 2.28, "<0.98 (10th percentile)", ">2.28 (95th percentile)", "is the predicted measure of organic carbon, also in 2010.")
                 break;
             case 'sulfate':
-                setPollutionVariable("so42_predi", "SO42- prediction (height)", 0.68, 3.01, "<0.68 (10th percentile)", ">3.01 (95th percentile)", "is the predicted measure of sulfate, also in 2010.")
+                setPollutionVariable("so42_predi", "predicted sulfate (height)", 0.68, 3.01, "<0.68 (10th percentile)", ">3.01 (95th percentile)", "is the predicted measure of sulfate, also in 2010.")
                 break;
         }
 
@@ -810,9 +810,18 @@ function teleportToFeature(GEOID) {
 
         saved_view.goTo({
             target: output.features[0].geometry,
-            zoom: 10,
-            tilt: 0,
-            heading: 0
+            zoom: 8,
+            tilt: 20,
+            heading: 10
+        });
+
+        currentSizeValueStore = output.features[0].attributes[defaultSizeField];
+        currentColorValueStore = output.features[0].attributes[defaultColorField];
+        current_GEOID = output.features[0].attributes["GEOID10"];
+
+        saved_view.popup.open({
+            features: output.features,
+            location: output.geometry
         });
 
     })

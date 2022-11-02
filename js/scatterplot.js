@@ -4,6 +4,10 @@ let sizeVariable = defaultSizeField;
 
 let GEOID = current_GEOID;
 
+let previous_selection;
+
+let previous_selection_element;
+
 let margin = {container_width: 410, container_height: 320, top: 10, right: 30, bottom: 60, left: 60},
     width = margin.container_width - margin.left - margin.right,
     height = margin.container_height - margin.top - margin.bottom;
@@ -138,7 +142,16 @@ function drawGraph() {
             .attr("cx", function (d) { return x(d[sizeVariable]); } )
             .attr("cy", function (d) { return y(d[colorVariable]); } )
             .attr("r", function(d) { return radius(d)})
-            .attr("fill", function(d){ return colors(d)})
+            .attr("class", function(d) {
+                if (d.GEOID10 == GEOID) {
+                    return "chosenGEOID"
+                    // previous_selection_element = d;
+                }
+            })
+            .attr("fill", function(d){
+
+                return colors(d)
+            })
 
         function refreshData() {
 
@@ -159,6 +172,33 @@ function drawGraph() {
             .attr('class', "tooltip");
 
         svg.selectAll("circle").on('click', function(d, event) {
+
+            d3.select(".chosenGEOID").attr("fill", function() {
+                return "rgba(208, 208, 208, 0.5)";
+            })
+
+            d3.select(".chosenGEOID").attr("r", function() {
+                return 3;
+            })
+
+            if (previous_selection != null) {
+                d3.select(previous_selection).attr("fill", function(d) {
+                    return "rgba(208, 208, 208, 0.5)";
+                })
+                d3.select(previous_selection).attr("r", function(d) {
+                    return 3;
+                })
+            }
+
+            previous_selection = this;
+
+            d3.select(this).attr("fill", function(d) {
+                return "rgba(170, 170, 251, 0.8)";
+            });
+            d3.select(this).attr("r", function(d) {
+                return 20;
+            })
+
             teleportToFeature(d.GEOID10);
         })
 
