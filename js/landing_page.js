@@ -37,3 +37,31 @@ function closeModal() {
 
 
 }
+
+function openC2APopup(selectedBox) {
+    let centralModal = document.getElementById(selectedBox);
+    centralModal.style.display = "block";
+
+    let body = document.body;
+    body.style.overflow = "hidden";
+    body.style.position = "fixed";
+
+    let darken = document.getElementById("darken");
+    darken.style.display = "block";
+
+    console.log("irving");
+}
+
+function closeC2APopup(selectedBox) {
+    let centralModal = document.getElementById(selectedBox);
+    centralModal.style.display = "none";
+
+    let body = document.body;
+    body.style.overflow = "auto";
+    body.style.position = "absolute";
+
+    let darken = document.getElementById("darken");
+    darken.style.display = "none";
+
+
+}
