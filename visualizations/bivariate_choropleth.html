@@ -126,10 +126,19 @@
   <div id="demographic-holder" class="variable-holder">
 
     <input type="radio" id="pct_black" name="demographic" value="pct_black" checked>
-    <label for="pct_black">% Black</label><br>
+    <label for="pct_black">% Black*</label><br>
 
-    <input type="radio" id="population" name="demographic" value="population">
-    <label for="population">Population</label><br>
+    <input type="radio" id="pct_white" name="demographic" value="pct_white">
+    <label for="pct_white">% White*</label><br>
+
+    <input type="radio" id="pct_native" name="demographic" value="pct_native">
+    <label for="pct_native">% Native*</label><br>
+
+    <input type="radio" id="pct_asian" name="demographic" value="pct_asian">
+    <label for="pct_asian">% Asian*</label><br>
+
+    <input type="radio" id="pct_hispanic" name="demographic" value="pct_hispanic">
+    <label for="pct_hispanic">% Hispanic</label><br>
 
     <input type="radio" id="pct_female" name="demographic" value="pct_female">
     <label for="pct_female">% Female</label><br>
@@ -140,29 +149,20 @@
     <input type="radio" id="pct_age_over_85" name="demographic" value="pct_age_over_85">
     <label for="pct_age_over_85">% Age Over 85</label><br>
 
-    <input type="radio" id="pct_white" name="demographic" value="pct_white">
-    <label for="pct_white">% White</label><br>
-
-    <input type="radio" id="pct_native" name="demographic" value="pct_native">
-    <label for="pct_native">% Native</label><br>
-
-    <input type="radio" id="pct_asian" name="demographic" value="pct_asian">
-    <label for="pct_asian">% Asian</label><br>
-
     <input type="radio" id="pct_two_or_more_races" name="demographic" value="pct_two_or_more_races">
     <label for="pct_two_or_more_races">% Two or More Races</label><br>
 
-    <input type="radio" id="pct_hispanic" name="demographic" value="pct_hispanic">
-    <label for="pct_hispanic">% Hispanic</label><br>
-
-    <input type="radio" id="n_households" name="demographic" value="n_households">
-    <label for="n_households">Number of Households</label><br>
+    <input type="radio" id="population" name="demographic" value="population">
+    <label for="population">Population</label><br>
 
     <input type="radio" id="pct_households_single_father" name="demographic" value="pct_households_single_father">
     <label for="pct_households_single_father">% of Single Father Households  </label><br>
 
     <input type="radio" id="pct_households_single_mother" name="demographic" value="pct_households_single_mother">
     <label for="pct_households_single_mother">% of Single Mother Households</label><br>
+
+    <input type="radio" id="n_households" name="demographic" value="n_households">
+    <label for="n_households">Number of Households</label><br>
 
     <input type="radio" id="n_housing_units" name="demographic" value="n_housing_units">
     <label for="n_housing_units">Number of Housing Units</label><br>
@@ -172,6 +172,8 @@
 
     <input type="radio" id="pct_renting" name="demographic" value="pct_renting">
     <label for="pct_renting">% Renting</label><br>
+
+    <p><em>* includes people identifying as both non-hispanic and hispanic within the respective category</em></p>
 
 
     <!--         <input type="radio" id="ice_race_ethnicity" name="demographic" value="ice_race_ethnicity">-->
