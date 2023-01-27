@@ -1,10 +1,10 @@
-let defaultSizeField = "ec_pred";
-let defaultSizeLegend = "predicted elemental carbon (height)";
-let defaultSizeLowerStop = 0.17;
-let defaultSizeUpperStop = 0.51;
-let defaultSizeLowerLabel = "<0.17 (10th percentile)";
-let defaultSizeUpperLabel = ">0.51 (95th percentile)";
-let defaultSizePopupText = "is the predicted measure of elemental carbon, also in 2010.";
+let defaultSizeField = "pm25";
+let defaultSizeLegend = "predicted particulate matter 2.5 (size)";
+let defaultSizeLowerStop = 5.31;
+let defaultSizeUpperStop = 12.47;
+let defaultSizeLowerLabel = "<5.31 (10th percentile)";
+let defaultSizeUpperLabel = ">12.47 (95th percentile)";
+let defaultSizePopupText = "is the predicted measure of particulate matter 2.5, also in 2010.";
 
 let defaultColorField = "pct_black";
 let defaultColorLegend = "% population identifying as black (color) ";
@@ -89,12 +89,13 @@ require([
 
     const customLayer = new FeatureLayer({
         url:
-            // "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/MA_16/FeatureServer",
-            // "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/us_counties_4/FeatureServer",
-            // "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/test33/FeatureServer",
-            // "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/test38/FeatureServer",
-            // "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/us_counties_19/FeatureServer",
-            "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/us_counties_22/FeatureServer",
+        // "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/MA_16/FeatureServer",
+        // "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/us_counties_4/FeatureServer",
+        // "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/test33/FeatureServer",
+        // "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/test38/FeatureServer",
+        // "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/us_counties_19/FeatureServer",
+        // "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/us_counties_22/FeatureServer",
+            "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/us_counties_22_with_pm25/FeatureServer",
         renderer: renderer,
         title: "Air pollution exposure by demographics (2010)",
         outFields: ["*"],
@@ -102,7 +103,7 @@ require([
             title: "{NAMELSAD10}",
             fieldInfos: [
                 {
-                    fieldName: "ec_pred",
+                    fieldName: "pm25",
                     format: {
                         digitSeparator: false,
                         places: 3
@@ -176,7 +177,7 @@ require([
                 },
                 {
                     type: "text",
-                    text: "{ec_pred} is the predicted measure of elemental carbon, also in 2010.",
+                    text: "{pm25} is the predicted measure of particulate matter 2.5, also in 2010.",
 
                 },
                 {
@@ -558,18 +559,18 @@ require([
                 title: legend
             }
         colorVariable.stops =
-         [
-            {
-                value: lower_stop,
-                color: "#d1e1ff",
-                label: lower_label
-            },
-            {
-                value: upper_stop,
-                color: "#144db8",
-                label: upper_label
-            }
-        ]
+            [
+                {
+                    value: lower_stop,
+                    color: "#d1e1ff",
+                    label: lower_label
+                },
+                {
+                    value: upper_stop,
+                    color: "#144db8",
+                    label: upper_label
+                }
+            ]
         customLayer.renderer = new_renderer;
     }
 
@@ -580,8 +581,11 @@ require([
         view.popup.close();
 
         switch (changedField.id) {
+            case 'pm25':
+                setPollutionVariable("pm25", "particulate matter 2.5 prediction (height)", 5.31,12.47, "<5.31 (10th percentile)", ">12.47 (95th percentile)", "is the predicted measure of particulate matter 2.5, also in 2010.")
+                break;
             case 'ec':
-                setPollutionVariable("ec_pred", "predicted elemental carbon (height)", 0.22, 0.66, "<0.17 (10th percentile)", ">0.51 (95th percentile)", "is the predicted measure of ammonium, also in 2010.")
+                setPollutionVariable("ec_pred", "predicted elemental carbon (height)", 0.22, 0.66, "<0.17 (10th percentile)", ">0.51 (95th percentile)", "is the predicted measure of elemental carbon, also in 2010.")
                 break;
             case 'ammonium':
                 setPollutionVariable("nh4_predic", "predicted ammonium (height)", 0.31, 1.34, "<0.31 (10th percentile)", ">1.34 (95th percentile)", "is the predicted measure of ammonium, also in 2010.")
@@ -714,7 +718,7 @@ require([
 
                             let new_value_2 = value2.toFixed(3);
 
-                            if (value_1 > new_value_2) {
+                            if (parseFloat(value_1) > parseFloat(new_value_2)) {
                                 bigger_value = value_1;
                                 smaller_value = new_value_2;
                                 surrounding_text = " greater than the national average of ";
@@ -722,6 +726,7 @@ require([
                                 bigger_value = new_value_2;
                                 smaller_value = value_1;
                                 surrounding_text = " less than the national average of ";
+
                             }
 
                             let percent_difference = ( ( Math.abs(new_value_2 - value_1) / new_value_2 ) * 100) ;

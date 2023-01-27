@@ -22,14 +22,19 @@ let svg = d3.select("#scatterPlot")
 
 function drawGraph() {
 
-    d3.csv("https://raw.githubusercontent.com/EthanMcFarlin/air-quality-disparities-mapper/main/data/2010_us_counties.csv", function(data) {
+    d3.csv("https://raw.githubusercontent.com/EthanMcFarlin/air-quality-disparities-mapper/main/data/2010_us_counties_pm25.csv", function(data) {
 
         let xMin = d3.min(data, function(d){
             return d[sizeVariable];
         });
 
         let xMax = d3.max(data, function(d){
-            return d[sizeVariable];
+            if (sizeVariable == "pm25") {
+                return d[sizeVariable] * 1.05;
+            } else {
+                return d[sizeVariable];
+            }
+
         });
 
         let yMin = d3.min(data, function(d){
@@ -222,7 +227,6 @@ function drawGraph() {
          <p><span><b>Name</b>: ${d.NAMELSAD10}</span></p>                                           
        </div>`);
         })
-
             .on('mouseout', function (event, d) {
                 d3.select(this)
                     .attr('stroke-width', '0px')

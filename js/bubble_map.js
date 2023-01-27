@@ -1,10 +1,10 @@
-let defaultSizeField = "ec_pred";
-let defaultSizeLegend = "predicted elemental carbon (height)";
-let defaultSizeLowerStop = 0.17;
-let defaultSizeUpperStop = 0.51;
-let defaultSizeLowerLabel = "<0.17 (10th percentile)";
-let defaultSizeUpperLabel = ">0.51 (95th percentile)";
-let defaultSizePopupText = "is the predicted measure of elemental carbon, also in 2010.";
+let defaultSizeField = "pm25";
+let defaultSizeLegend = "predicted particulate matter 2.5 (size)";
+let defaultSizeLowerStop = 5.31;
+let defaultSizeUpperStop = 12.47;
+let defaultSizeLowerLabel = "<5.31 (10th percentile)";
+let defaultSizeUpperLabel = ">12.47 (95th percentile)";
+let defaultSizePopupText = "is the predicted measure of particulate matter 2.5, also in 2010.";
 
 let defaultColorField = "pct_black";
 let defaultColorLegend = "% population identifying as black (color) ";
@@ -96,7 +96,8 @@ require([
         // "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/test33/FeatureServer",
         // "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/test38/FeatureServer",
         //  "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/us_counties_19/FeatureServer",
-        "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/us_counties_22/FeatureServer",
+        // "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/us_counties_22/FeatureServer",
+        "https://services1.arcgis.com/qN3V93cYGMKQCOxL/arcgis/rest/services/us_counties_22_with_pm25/FeatureServer",
         renderer: renderer,
         title: "Air pollution exposure by demographics (2010)",
         outFields: ["*"],
@@ -104,7 +105,7 @@ require([
             title: "{NAMELSAD10}",
             fieldInfos: [
                 {
-                    fieldName: "ec_pred",
+                    fieldName: "pm25",
                     format: {
                         digitSeparator: false,
                         places: 3
@@ -178,7 +179,7 @@ require([
                 },
                 {
                     type: "text",
-                    text: "{ec_pred} is the predicted measure of elemental carbon, also in 2010.",
+                    text: "{pm25} is the predicted measure of particulate matter 2.5, also in 2010.",
 
                 },
                 {
@@ -573,20 +574,23 @@ require([
         view.popup.close();
 
         switch (changedField.id) {
+            case 'pm25':
+                setPollutionVariable("pm25", "particulate matter 2.5 prediction (size)", 5.31,12.47, "<5.31 (10th percentile)", ">12.47 (95th percentile)", "is the predicted measure of particulate matter 2.5, also in 2010.")
+                break;
             case 'ec':
-                setPollutionVariable("ec_pred", "elemental carbon prediction (height)", 0.22, 0.66, "<0.17 (10th percentile)", ">0.51 (95th percentile)", "is the predicted measure of ammonium, also in 2010.")
+                setPollutionVariable("ec_pred", "elemental carbon prediction (size)", 0.22, 0.66, "<0.17 (10th percentile)", ">0.51 (95th percentile)", "is the predicted measure of elemental carbon, also in 2010.")
                 break;
             case 'ammonium':
-                setPollutionVariable("nh4_predic", "ammonium prediction (height)", 0.31, 1.34, "<0.31 (10th percentile)", ">1.34 (95th percentile)", "is the predicted measure of ammonium, also in 2010.")
+                setPollutionVariable("nh4_predic", "ammonium prediction (size)", 0.31, 1.34, "<0.31 (10th percentile)", ">1.34 (95th percentile)", "is the predicted measure of ammonium, also in 2010.")
                 break;
             case 'nitrate':
-                setPollutionVariable("no3_predic", "nitrate prediction (height)", 0.40, 2.08, "<0.40 (10th percentile)", ">2.08 (95th percentile)", "is the predicted measure of nitrate, also in 2010.")
+                setPollutionVariable("no3_predic", "nitrate prediction (size)", 0.40, 2.08, "<0.40 (10th percentile)", ">2.08 (95th percentile)", "is the predicted measure of nitrate, also in 2010.")
                 break;
             case 'oc':
-                setPollutionVariable("oc_predict", "organic carbon prediction (height)", 0.98, 2.28, "<0.98 (10th percentile)", ">2.28 (95th percentile)", "is the predicted measure of organic carbon, also in 2010.")
+                setPollutionVariable("oc_predict", "organic carbon prediction (size)", 0.98, 2.28, "<0.98 (10th percentile)", ">2.28 (95th percentile)", "is the predicted measure of organic carbon, also in 2010.")
                 break;
             case 'sulfate':
-                setPollutionVariable("so42_predi", "sulfate prediction (height)", 0.68, 3.01, "<0.68 (10th percentile)", ">3.01 (95th percentile)", "is the predicted measure of sulfate, also in 2010.")
+                setPollutionVariable("so42_predi", "sulfate prediction (size)", 0.68, 3.01, "<0.68 (10th percentile)", ">3.01 (95th percentile)", "is the predicted measure of sulfate, also in 2010.")
                 break;
         }
 
@@ -707,7 +711,7 @@ require([
 
                             let new_value_2 = value2.toFixed(3);
 
-                            if (value_1 > new_value_2) {
+                            if (parseFloat(value_1) > parseFloat(new_value_2)) {
                                 bigger_value = value_1;
                                 smaller_value = new_value_2;
                                 surrounding_text = " greater than the national average of ";
