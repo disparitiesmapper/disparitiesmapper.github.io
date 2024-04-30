@@ -149,9 +149,9 @@
 }
 
 .color-orb > i, .secondary-orb > i {
-    padding-top: calc(17px);
+    padding-top: 6px;
+    padding-left:2px;
 }
-
 
 
 #call-to-action {
